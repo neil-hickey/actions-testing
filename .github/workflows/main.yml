@@ -14,4 +14,4 @@ jobs:
         with: 
           repository: 'cloudfoundry-incubator/kubo-release'
       - name: Bump
-        uses: neil-hickey/bosh-blob-updater-action
+        uses: neil-hickey/bosh-blob-updater-action@v1
