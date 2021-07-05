@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        repository: 'cloudfoundry-incubator/kubo-release'
+        with: 
+          repository: 'cloudfoundry-incubator/kubo-release'
       - name: Bump
         uses: neil-hickey/bosh-blob-updater-action
