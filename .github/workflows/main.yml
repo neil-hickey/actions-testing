@@ -1,0 +1,16 @@
+name: testing-updater
+
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to test bosh-blob updater
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        repository: 'cloudfoundry-incubator/kubo-release'
+      - name: Bump
+        uses: neil-hickey/bosh-blob-updater-action
