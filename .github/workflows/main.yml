@@ -2,6 +2,8 @@ name: testing-updater
 
 on: 
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -9,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test bosh-blob updater
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with: 
-          repository: 'cloudfoundry-incubator/kubo-release'
-      - name: Bump
-        uses: neil-hickey/bosh-blob-updater-action@v1
+      - name: test
+        run: |
+          brew install aquasecurity/trivy/trivy
