@@ -12,13 +12,18 @@ jobs:
     name: A job to test bosh-blob updater
     steps:
       - name: test
+        id: check
         run: |
           exit 42
       - name: test-success
         if: success()
         run: |
           echo "yep"
-      - name: test-success
+      - name: test-failure-42
+        if: steps.check.outputs.exit_status == 42
+        run: |
+          echo "nope 42"
+      - name: test-failure
         if: failure()
         run: |
-          echo "yep"
+          echo "nope"
