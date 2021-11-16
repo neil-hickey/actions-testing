@@ -20,7 +20,7 @@ jobs:
         run: |
           echo "yep"
       - name: test-failure-42
-        if: steps.check.outputs.exit_status == 42
+        if: failure() && steps.check.outputs.exit_status == 42
         run: |
           echo "nope 42"
       - name: test-failure
