@@ -24,6 +24,6 @@ jobs:
         run: |
           echo "nope 42"
       - name: test-failure
-        if: failure()
+        if: failure() && steps.check.outputs.exit_status != 42
         run: |
           echo "nope"
