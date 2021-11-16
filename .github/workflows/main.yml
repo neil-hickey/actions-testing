@@ -13,7 +13,12 @@ jobs:
     steps:
       - name: test
         run: |
-          brew install aquasecurity/trivy/trivy
-      - name: test
+          exit 42
+      - name: test-success
+        if: success()
         run: |
-          trivy
+          echo "yep"
+      - name: test-success
+        if: failure()
+        run: |
+          echo "yep"
