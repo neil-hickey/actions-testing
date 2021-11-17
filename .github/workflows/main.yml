@@ -15,39 +15,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.16.0
         with:
-          payload: |
-            {
-              "blocks": [
-                { "type": "divider" },
-                {
-                  "type": "image",
-                  "title": {
-                    "type": "plain_text",
-                    "text": "Slack Slack Slack",
-                    "emoji": true
-                  },
-                  "image_url": "https://media.makeameme.org/created/a-slack-this.jpg",
-                  "alt_text": "marg"
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": $values.button_text
-                      },
-                      "url": $values.button_url
-                    }
-                  ]
-                }
-              ],
-              channel-id": "NEW_TARGET_CHANNEL_ID"
-            }
+          channel-id: 'C02N3GGKXPB' # ID of Slack Channel you want to post to
+          slack-message: 'posting from a github action!' # The message you want to post
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-        values: |
-          button_text: ${{ github.sha }}
-          button_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
