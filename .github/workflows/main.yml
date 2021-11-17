@@ -11,19 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test bosh-blob updater
     steps:
-      - name: test
-        id: check
-        run: |
-          exit 42
-      - name: test-success
-        if: success()
-        run: |
-          echo "yep"
-      - name: test-failure-42
-        if: failure() && steps.check.outputs.exit_status == 42
-        run: |
-          echo "nope 42"
-      - name: test-failure
-        if: failure() && steps.check.outputs.exit_status != 42
-        run: |
-          echo "nope"
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.16.0
+        with:
+          channel-id: 'C02N3GGKXPB'  # Slack channel id or name to post message. https://api.slack.com/methods/chat.postMessage#channels
+          slack-message: 'posting from a github action!'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
