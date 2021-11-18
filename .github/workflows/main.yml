@@ -11,11 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test bosh-blob updater
     steps:
-      - name: Post to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.16.0
+      - name: Get Latest
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
-          channel-id: 'C02N3GGKXPB' # ID of Slack Channel you want to post to
-          slack-message: 'posting from a github action!' # The message you want to post
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          repository: vmware-tanzu/carvel-kapp-controller
+      - name: show
+        run: |
+          ls
