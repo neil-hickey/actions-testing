@@ -8,12 +8,12 @@ on:
 jobs:
   check-for-releases:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tool: ['ytt', 'kapp']
     steps:
-      - uses: robinraju/release-downloader@v1.3
-        with:
-          repository: "vmware-tanzu/carvel-kapp"
-          latest: true
-          fileName: "*"
-      - name: check-files
+      - name: check-latest-release
+        env:
+          tool: ${{ matrix.tool }}
         run: |
-          ls -la
+          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ tool }}/releases/latest | jq -r '.tag_name'
