@@ -13,7 +13,5 @@ jobs:
         tool: ['ytt', 'kapp']
     steps:
       - name: check-latest-release
-        env:
-          tool: ${{ matrix.tool }}
         run: |
-          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ tool }}/releases/latest | jq -r '.tag_name'
+          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ matrix.tool  }}/releases/latest | jq -r '.tag_name'
