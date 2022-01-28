@@ -10,8 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tool: ['ytt', 'kapp']
+        tool: ['ytt', 'kapp', 'kbld', 'imgpkg', 'vendir']
     steps:
-      - name: check-latest-release
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get Current Release Version
         run: |
-          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ matrix.tool  }}/releases/latest | jq -r '.tag_name'
+          cat hack/install-dep.sh
+      - name: Get Latest Release Version
+        run: |
+          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ matrix.tool }}/releases/latest | jq -r '.tag_name'
