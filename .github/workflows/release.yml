@@ -1,9 +1,10 @@
 name: testing
 
 on:
-  schedule:
-    - cron: '* * * * *'
-
+  push:
+    branches:
+      - main
+      
 jobs:
   check-for-releases:
     runs-on: ubuntu-latest
