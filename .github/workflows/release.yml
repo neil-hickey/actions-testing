@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: robinraju/release-downloader@v1.3
         with:
-          repository: "neil-hickey/actions-testing"
+          repository: "vmware-tanzu/carvel-kapp"
           latest: true
           fileName: "*"
       - name: check-files
