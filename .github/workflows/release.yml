@@ -15,6 +15,9 @@ jobs:
           fetch-depth: 0
       - name: Get Current Release Version
         run: |
+        
+          VERSION=${{ github.event.release.tag_name }}
+          
           cat << EOF > pkgi.yml
           ---
           apiVersion: packaging.carvel.dev/v1alpha1
@@ -27,7 +30,7 @@ jobs:
               refName: secretgen-controller.carvel.dev
               apiVersion: packaging.carvel.dev/v1alpha1
               versionSelection:
-                constraints: "${{ github.ref_name:1 }}"
+                constraints: "${VERSION:1}"
           EOF
           
           cat pkgi.yml
