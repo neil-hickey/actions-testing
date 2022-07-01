@@ -2,15 +2,12 @@ name: testing
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
       
 jobs:
   check-for-releases:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        tool: ['ytt', 'kapp', 'kbld', 'imgpkg', 'vendir']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,7 +15,19 @@ jobs:
           fetch-depth: 0
       - name: Get Current Release Version
         run: |
-          cat hack/install-dep.sh
-      - name: Get Latest Release Version
-        run: |
-          curl -sL https://api.github.com/repos/vmware-tanzu/carvel-${{ matrix.tool }}/releases/latest | jq -r '.tag_name'
+          cat << EOF > pkgi.yml
+          ---
+          apiVersion: packaging.carvel.dev/v1alpha1
+          kind: PackageInstall
+          metadata:
+            name: secretgen-controller
+          spec:
+            serviceAccountName: cluster-admin-sa
+            packageRef:
+              refName: secretgen-controller.carvel.dev
+              apiVersion: packaging.carvel.dev/v1alpha1
+              versionSelection:
+                constraints: "${{ github.ref_name:1 }}"
+          EOF
+          
+          cat pkgi.yml
